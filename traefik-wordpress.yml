@@ -9,7 +9,7 @@ services:
      labels:
        - "traefik.enable=false"
      networks:
-       - wp1_back
+       - wp_back
      environment:
        MYSQL_ROOT_PASSWORD: wordpress
        MYSQL_DATABASE: wordpress
@@ -27,7 +27,7 @@ services:
      restart: always
      networks:
       - traefik
-      - wp1_back
+      - wp_back
      environment:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wordpress
@@ -40,7 +40,7 @@ volumes:
     wp_data:
 
 networks:
-  wp1_back:
+  wp_back:
     driver: bridge
   traefik:
     external:
