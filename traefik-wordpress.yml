@@ -21,8 +21,8 @@ services:
        - db
      image: wordpress:latest
      labels:
-      - "traefik.backend=prueba1"
-      - "traefik.frontend.rule=Host:prueba1.linuxenea"
+      - "traefik.backend=wp"
+      - "traefik.frontend.rule=Host:wp.ichasco.com"
       - "traefik.docker.network=traefik"
      restart: always
      networks:
