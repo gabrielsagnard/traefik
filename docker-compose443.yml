@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  proxy:
+    image: traefik
+    restart: always
+    networks:
+      - traefik
+    ports:
+      - "80:80"
+      - "8081:8080"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $PWD/traefik.toml:/etc/traefik/traefik.toml
+      - $PWD/acme:/etc/traefik/acme
+networks:
+  traefik:
+    external:
+      name: traefik
