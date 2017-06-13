@@ -1,0 +1,50 @@
+################################################################
+# Global configuration
+################################################################
+
+accessLogsFile = "log/access.log"
+logLevel = "DEBUG"
+
+defaultEntryPoints = ["http", "https"]
+
+[acme]
+  email = "info@ichasco.com"
+  storageFile = "/etc/traefik/acme/acme.json"
+  entryPoint = "https"
+  acmeLogging = true
+  onDemand = true
+  OnHostRule = true
+  
+ [entryPoints]
+  [entryPoints.http]
+    address = ":80"
+     [entryPoints.http.redirect]
+       entryPoint = "https"
+   [entryPoints.https]
+     address = ":443"
+       [entryPoints.https.tls]
+       
+################################################################
+# Web configuration backend
+################################################################
+
+[web]
+  address = ":8080"
+  
+################################################################
+# Docker configuration backend
+################################################################
+
+[docker]
+  endpoint = "unix:///var/run/docker.sock"
+  domain = "ichasco.com"
+  watch = true
+  
+
+################################################################
+# Docker Swarmmode configuration backend
+################################################################
+
+[docker]
+  swarmmode = false
+
