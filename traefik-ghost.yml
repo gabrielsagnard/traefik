@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  ghost:
+    image: ghost
+    restart: always
+    volumes:
+      - $PWD/datos:/var/lib/ghost
+    labels:
+      - "traefik.backend=ghost"
+      - "traefik.frontend.rule=Host:ghost.ichasco.com"
+      - "traefik.docker.network=traefik"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external:
+      name: traefik
