@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb:latest
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bugtracker
+      MYSQL_USER: mantisbt
+      MYSQL_PASSWORD: mantisbt
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+
+  mantisbt:
+    image: vimagick/mantisbt:latest
+    links:
+      - db
+    restart: always
+    networks:
+      - traefik
+      - backend
+    labels:
+      - "traefik.backend=mantis"
+      - "traefik.frontend.rule=Host:incidencias.ichasco.com"
+      - "traefik.docker.network=traefik"
+    volumes:
+      - mantisbt:/var/www/html
+
+volumes:
+  db:
+  mantisbt:
+
+networks:
+  backend:
+    driver: bridge
+  traefik:
+    external:
+      name: traefik
