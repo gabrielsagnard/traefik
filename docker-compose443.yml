@@ -12,7 +12,7 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $PWD/traefik.toml:/etc/traefik/traefik.toml
+      - $PWD/traefik443.toml:/etc/traefik/traefik.toml
       - $PWD/acme:/etc/traefik/acme
 networks:
   traefik:
